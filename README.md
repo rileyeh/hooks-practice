@@ -119,3 +119,14 @@ Movie.js
 - also now that we are rendering EditMovie, we can pass it a few props, namely the setEdit function (from state), the update function that we destructured off props and the movie info that was sent on props too
 
 EditMovie.js
+
+- now that we passed the movie object down, we can take it off props, as well as those two functions (setEdit and the update) 
+- to separate things out, at the top of your function you can also destructure title, rating, imageURL, id off of movie (or props.movie if you didn't destructure)
+- we'll allow for users to change the title, image or rating, so we've got three inputs ready for that. if we're going to change those, then we will need to use the useState hooks to hold values for them. if you already destructured those properties, then you'll need to use new variable names in the useState hook. like if you destructured 'title', then you would want something like 'newTitle' on state. 
+- also, the initial value should be set to the property you pulled off movie for the corresponding variable -- ```const [newRating, setRating] = useState(rating)```
+- now, set up the input fields like we did in the Adder -- give them a value of the variable you want them to match to on state and write an onClick function that calls the function to set the state to ```e.target.value```
+- write a function that you will call in the onSubmit of the form. you should define e as a parameter and inside the function call e.preventDefault(). also, call your update function and pass in the id and the info from state as the body. we also passed down setEdit -- invoke that passing in false as an argument, which will set the state of edit in Movie.js to false so the form goes away
+
+## You're done!
+
+Your app should work now, if you'd like to check, you can see a completed version [here](https://github.com/rileyeh/hooks-practice-complete)
