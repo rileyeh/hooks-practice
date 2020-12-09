@@ -1,20 +1,32 @@
-import React from 'react' 
+import React, { useState } from 'react' 
+import EditMovie from './EditMovie'
 
-export default function Movie({ movie }) {
+export default function Movie({ movie, deleteMovie, updateMovie }) {
+    const [edit, setEdit] = useState(false)
     return (
         <div style={style.div}>
             <img alt='movie cover' src={movie.imageURL} style={style.img}/>
-            {/* the JSX below this line in a fragment, will end up in a ternary. after you've made the ternary, you can delete this comment */}
+            {
+            edit
+            ?
+            <EditMovie 
+                setEdit={setEdit}
+                updateMovie={updateMovie}
+                movie={movie}/>
+            :
             <>
             <p style={style.title}>{movie.title}</p>
             <p style={style.rating}>{movie.rating} stars</p>
             <div style={style.buttonsContainer}>
                 <button 
+                    onClick={() => deleteMovie(+movie.id)}
                     style={style.button}>delete</button>
                 <button 
+                    onClick={() => setEdit(true)}
                     style={style.button}>edit</button>
-            </div> 
+            </div>
             </>
+            }
         </div>
     )
 }

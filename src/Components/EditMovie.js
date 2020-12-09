@@ -1,19 +1,44 @@
-import React from 'react'
+import React, { useState } from 'react'
 
-export default function EditRating({}) {
+export default function EditRating({setEdit, updateMovie, movie}) {
+    let {title, rating, imageURL, id} = movie
+    const [newRating, setRating] = useState(rating)
+    const [newTitle, setTitle] = useState(title)
+    const [newURL, setURL] = useState(imageURL)
+
+    const update = e => {
+        e.preventDefault()
+        let body = {
+            title: newTitle, 
+            rating: newRating, 
+            imageURL: newURL
+        }
+        updateMovie(id, body)
+        setEdit(false)
+    }
+
     return (
-        <form style={style.container}>
+        <form 
+            style={style.container}
+            onSubmit={update}>
             <input
                 type='text'
-                style={style.input} />
+                value={newTitle}
+                style={style.input} 
+                onChange={e => setTitle(e.target.value)} />
             <input
                 type='text'
-                style={style.input}  />
+                value={newRating}
+                style={style.input} 
+                onChange={e => setRating(e.target.value)} />
             <input
                 type='text'
-                style={style.input}  />
+                value={newURL}
+                style={style.input} 
+                onChange={e => setURL(e.target.value)} />
             <div style={style.buttonsContainer}>
                 <button 
+                    onClick={() => setEdit(false)}
                     style={style.button}>cancel</button>
                 <button 
                     style={style.button}>save</button>
